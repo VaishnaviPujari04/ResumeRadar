@@ -143,7 +143,6 @@ View and revisit previous resume analyses.
 - Job Recommendation System
 - Resume Templates
 - Email Resume Sharing
-- Dark Mode
 - Multi-language Support
 
 ---
