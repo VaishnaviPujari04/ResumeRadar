@@ -724,87 +724,87 @@ describe("10. Resume Comparison", () => {
   });
 });
 
-// // ============================================================
-// // 11. HISTORY PAGE
-// // ============================================================
-// describe("11. History Page", () => {
-//   beforeEach(() => {
-//     cy.loginSession();
-//     cy.visit("/history");
-//   });
+// ============================================================
+// 11. HISTORY PAGE
+// ============================================================
+describe("11. History Page", () => {
+  beforeEach(() => {
+    cy.loginSession();
+    cy.visit("/history");
+  });
 
-//   it("shows History heading", () => {
-//     cy.get("h1").should("contain.text", "History");
-//   });
+  it("shows History heading", () => {
+    cy.get("h1").should("contain.text", "History");
+  });
 
-//   it("shows Analyses tab", () => {
-//     cy.get("button")
-//       .contains(/Analyses/i)
-//       .should("be.visible");
-//   });
+  it("shows Analyses tab", () => {
+    cy.get("button")
+      .contains(/Analyses/i)
+      .should("be.visible");
+  });
 
-//   it("shows Cover Letters tab", () => {
-//     cy.get("button")
-//       .contains(/Cover Letters/i)
-//       .should("be.visible");
-//   });
+  it("shows Cover Letters tab", () => {
+    cy.get("button")
+      .contains(/Cover Letters/i)
+      .should("be.visible");
+  });
 
-//   it("shows Rewrites tab", () => {
-//     cy.get("button")
-//       .contains(/Rewrites/i)
-//       .should("be.visible");
-//   });
+  it("shows Rewrites tab", () => {
+    cy.get("button")
+      .contains(/Rewrites/i)
+      .should("be.visible");
+  });
 
-//   it("shows Interview Prep tab", () => {
-//     cy.get("button")
-//       .contains(/Interview Prep/i)
-//       .should("be.visible");
-//   });
+  it("shows Interview Prep tab", () => {
+    cy.get("button")
+      .contains(/Interview Prep/i)
+      .should("be.visible");
+  });
 
-//   it("switches to Cover Letters tab", () => {
-//     cy.get("button")
-//       .contains(/Cover Letters/i)
-//       .click({ force: true });
-//     cy.get("body").should("not.contain", "undefined");
-//   });
+  it("switches to Cover Letters tab", () => {
+    cy.get("button")
+      .contains(/Cover Letters/i)
+      .click({ force: true });
+    cy.get("body").should("not.contain", "undefined");
+  });
 
-//   it("switches to Rewrites tab", () => {
-//     cy.get("button")
-//       .contains(/Rewrites/i)
-//       .click({ force: true });
-//     cy.get("body").should("not.contain", "undefined");
-//   });
+  it("switches to Rewrites tab", () => {
+    cy.get("button")
+      .contains(/Rewrites/i)
+      .click({ force: true });
+    cy.get("body").should("not.contain", "undefined");
+  });
 
-//   it("switches to Interview Prep tab", () => {
-//     cy.get("button")
-//       .contains(/Interview Prep/i)
-//       .click({ force: true });
-//     cy.get("body").should("not.contain", "undefined");
-//   });
+  it("switches to Interview Prep tab", () => {
+    cy.get("button")
+      .contains(/Interview Prep/i)
+      .click({ force: true });
+    cy.get("body").should("not.contain", "undefined");
+  });
 
-//   it("switches back to Analyses tab", () => {
-//     cy.get("button")
-//       .contains(/Cover Letters/i)
-//       .click({ force: true });
-//     cy.get("button")
-//       .contains(/Analyses/i)
-//       .click({ force: true });
-//     cy.get("body").should("not.contain", "undefined");
-//   });
+  it("switches back to Analyses tab", () => {
+    cy.get("button")
+      .contains(/Cover Letters/i)
+      .click({ force: true });
+    cy.get("button")
+      .contains(/Analyses/i)
+      .click({ force: true });
+    cy.get("body").should("not.contain", "undefined");
+  });
 
-//   it("shows content or empty state", () => {
-//     // Wait for loading to finish
-//     cy.wait(2000);
-//     cy.get("body").then(($body) => {
-//       const text = $body.text();
-//       const hasData = $body.find(".rounded-2xl").length > 1;
-//       const hasEmpty = text.includes("Nothing here yet");
-//       const isLoading = text.includes("Loading") || text.includes("loading");
-//       // Pass if any valid state is shown
-//       expect(hasData || hasEmpty || isLoading).to.be.true;
-//     });
-//   });
-// });
+  it("shows content or empty state", () => {
+    // Wait for loading to finish
+    cy.wait(2000);
+    cy.get("body").then(($body) => {
+      const text = $body.text();
+      const hasData = $body.find(".rounded-2xl").length > 1;
+      const hasEmpty = text.includes("Nothing here yet");
+      const isLoading = text.includes("Loading") || text.includes("loading");
+      // Pass if any valid state is shown
+      expect(hasData || hasEmpty || isLoading).to.be.true;
+    });
+  });
+});
 // ============================================================
 // 12. SHARED REPORT (Public Page)
 // ============================================================
