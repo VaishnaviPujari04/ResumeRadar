@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { MessageCircle, Lightbulb, Sparkles } from "lucide-react";
 import toast from "react-hot-toast";
+import { apiFetch } from "../utils/api.js";
 
 const CATEGORY_COLORS = {
   Technical: "bg-blue-900/30 border-blue-800 text-blue-400",
@@ -18,7 +19,7 @@ export default function InterviewPrep() {
 
   useEffect(() => {
     async function fetchAnalyses() {
-      const res = await fetch("/api/analyze/history", {
+      const res = await apiFetch("/api/analyze/history", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -37,7 +38,7 @@ export default function InterviewPrep() {
     setQuestions([]);
 
     try {
-      const res = await fetch("/api/interview/generate", {
+      const res = await apiFetch("/api/interview/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +83,8 @@ export default function InterviewPrep() {
             >
               {analyses.map((a) => (
                 <option key={a._id} value={a._id}>
-                  {a.jobDescription.slice(0, 80)}... — {a.result?.matchScore}% match
+                  {a.jobDescription.slice(0, 80)}... — {a.result?.matchScore}%
+                  match
                 </option>
               ))}
             </select>
@@ -101,18 +103,29 @@ export default function InterviewPrep() {
       {questions.length > 0 && (
         <div className="flex flex-col gap-3">
           {questions.map((q, i) => (
-            <div key={i} className="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+            <div
+              key={i}
+              className="bg-gray-900 border border-gray-800 rounded-2xl p-5"
+            >
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div className="flex items-start gap-2">
-                  <MessageCircle size={16} className="text-gray-500 mt-0.5 shrink-0" />
+                  <MessageCircle
+                    size={16}
+                    className="text-gray-500 mt-0.5 shrink-0"
+                  />
                   <p className="text-white text-sm font-medium">{q.question}</p>
                 </div>
-                <span className={`text-xs border px-2.5 py-1 rounded-full shrink-0 ${CATEGORY_COLORS[q.category] || "bg-gray-800 border-gray-700 text-gray-400"}`}>
+                <span
+                  className={`text-xs border px-2.5 py-1 rounded-full shrink-0 ${CATEGORY_COLORS[q.category] || "bg-gray-800 border-gray-700 text-gray-400"}`}
+                >
                   {q.category}
                 </span>
               </div>
               <div className="flex items-start gap-2 mt-2 pl-6">
-                <Lightbulb size={13} className="text-yellow-400 mt-0.5 shrink-0" />
+                <Lightbulb
+                  size={13}
+                  className="text-yellow-400 mt-0.5 shrink-0"
+                />
                 <p className="text-gray-500 text-xs leading-relaxed">{q.tip}</p>
               </div>
             </div>

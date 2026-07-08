@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Share2, Copy, Check, X, Link2 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
+import { apiFetch } from "../utils/api.js";
+import { apiFetch } from "../utils/api.js";
 
 export default function ShareButton({ analysisId }) {
   const [shareUrl, setShareUrl] = useState(null);
@@ -85,12 +87,18 @@ export default function ShareButton({ analysisId }) {
               onClick={handleCopy}
               className="text-slate-400 hover:text-blue-400 transition-colors shrink-0"
             >
-              {copied ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
+              {copied ? (
+                <Check size={14} className="text-green-400" />
+              ) : (
+                <Copy size={14} />
+              )}
             </button>
           </div>
 
           <div className="flex items-center justify-between">
-            <p className="text-slate-600 text-xs">Anyone with this link can view the report</p>
+            <p className="text-slate-600 text-xs">
+              Anyone with this link can view the report
+            </p>
             <button
               onClick={handleRevoke}
               className="text-xs text-red-400 hover:text-red-300 transition-colors"

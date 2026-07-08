@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { CheckCircle, AlertCircle, Lightbulb } from "lucide-react";
-
+import { apiFetch } from "../utils/api.js";
 function ScoreCircle({ score }) {
   const color = score >= 75 ? "#4ade80" : score >= 50 ? "#facc15" : "#f87171";
   return (
@@ -42,7 +42,7 @@ export default function SharedReport() {
   useEffect(() => {
     async function fetchReport() {
       try {
-        const res = await fetch(`/api/share/report/${shareId}`);
+        const res = await apiFetch(`/api/share/report/${shareId}`);
         const data = await res.json();
         if (!res.ok) throw new Error(data.message);
         setReport(data);

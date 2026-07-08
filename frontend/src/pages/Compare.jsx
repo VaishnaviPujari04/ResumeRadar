@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Upload, FileText, X, Trophy, Zap, Link2, Loader } from "lucide-react";
 import toast from "react-hot-toast";
+import { apiFetch } from "../utils/api.js";
 
 function FileUploadBox({ label, file, onFile, onRemove }) {
   const ref = useRef(null);
@@ -125,9 +126,7 @@ function ScoreCard({ label, filename, result, isWinner, isTie }) {
               onClick={() => setShowAllKeywords(!showAllKeywords)}
               className="mt-2 text-xs text-blue-400 hover:text-blue-300 transition-colors"
             >
-              {showAllKeywords
-                ? "Show less"
-                : `+${remaining} more`}
+              {showAllKeywords ? "Show less" : `+${remaining} more`}
             </button>
           )}
         </div>
@@ -188,7 +187,7 @@ export default function Compare() {
     }
     setScraping(true);
     try {
-      const res = await fetch("/api/scrape", {
+      const res = await apiFetch("/api/scrape", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -227,7 +226,7 @@ export default function Compare() {
       formData.append("resumeB", fileB);
       formData.append("jobDescription", jobDescription);
 
-      const res = await fetch("/api/compare", {
+      const res = await apiFetch("/api/compare", {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Wand2, Copy, Check, ArrowRight } from "lucide-react";
 import toast from "react-hot-toast";
+import { apiFetch } from "../utils/api.js";
 import { Download } from "lucide-react";
 import { exportTextAsPdf } from "../utils/exportPdf";
 
@@ -19,7 +20,7 @@ export default function Rewriter() {
   useEffect(() => {
     async function fetchAnalyses() {
       try {
-        const res = await fetch("/api/analyze/history", {
+        const res = await apiFetch("/api/analyze/history", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -41,7 +42,7 @@ export default function Rewriter() {
     setResult(null);
 
     try {
-      const res = await fetch("/api/rewrite/bullet", {
+      const res = await apiFetch("/api/rewrite/bullet", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +70,7 @@ export default function Rewriter() {
     setResult(null);
 
     try {
-      const res = await fetch("/api/rewrite/resume", {
+      const res = await apiFetch("/api/rewrite/resume", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

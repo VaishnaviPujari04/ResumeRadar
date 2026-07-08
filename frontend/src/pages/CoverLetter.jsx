@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { FileText, Copy, Check, Sparkles } from "lucide-react";
 import toast from "react-hot-toast";
+import { apiFetch } from "../utils/api.js";
 import { Download } from "lucide-react";
 import { exportTextAsPdf } from "../utils/exportPdf";
 
@@ -20,7 +21,7 @@ export default function CoverLetter() {
   useEffect(() => {
     async function fetchAnalyses() {
       try {
-        const res = await fetch("/api/analyze/history", {
+        const res = await apiFetch("/api/analyze/history", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -42,7 +43,7 @@ export default function CoverLetter() {
     setCoverLetter("");
 
     try {
-      const res = await fetch("/api/cover-letter/generate", {
+      const res = await apiFetch("/api/cover-letter/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Plus, Trash2, ExternalLink, ChevronDown } from "lucide-react";
 import toast from "react-hot-toast";
+import { apiFetch } from "../utils/api.js";
 
 const STATUS_COLORS = {
   Applied: "bg-blue-900/30 border-blue-800 text-blue-400",
@@ -17,7 +18,11 @@ export default function ApplicationTracker() {
   const [applications, setApplications] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({
-    companyName: "", jobTitle: "", status: "Applied", jobUrl: "", notes: "",
+    companyName: "",
+    jobTitle: "",
+    status: "Applied",
+    jobUrl: "",
+    notes: "",
   });
   const [loading, setLoading] = useState(false);
   const { token } = useAuth();
@@ -28,7 +33,7 @@ export default function ApplicationTracker() {
 
   async function fetchApplications() {
     try {
-      const res = await fetch("/api/applications", {
+      const res = await apiFetch("/api/applications", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -45,7 +50,7 @@ export default function ApplicationTracker() {
     }
     setLoading(true);
     try {
-      const res = await fetch("/api/applications", {
+      const res = await apiFetch("/api/applications", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,7 +61,13 @@ export default function ApplicationTracker() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
       setApplications([data.application, ...applications]);
-      setForm({ companyName: "", jobTitle: "", status: "Applied", jobUrl: "", notes: "" });
+      setForm({
+        companyName: "",
+        jobTitle: "",
+        status: "Applied",
+        jobUrl: "",
+        notes: "",
+      });
       setShowForm(false);
       toast.success("Application added!");
     } catch (err) {
@@ -77,7 +88,9 @@ export default function ApplicationTracker() {
         body: JSON.stringify({ status }),
       });
       const data = await res.json();
-      setApplications(applications.map((a) => a._id === id ? data.application : a));
+      setApplications(
+        applications.map((a) => (a._id === id ? data.application : a)),
+      );
       toast.success("Status updated!");
     } catch (err) {
       toast.error("Failed to update");
@@ -122,7 +135,9 @@ export default function ApplicationTracker() {
               type="text"
               placeholder="Company Name *"
               value={form.companyName}
-              onChange={(e) => setForm({ ...form, companyName: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, companyName: e.target.value })
+              }
               className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-blue-500 placeholder-slate-600"
             />
             <input
@@ -144,7 +159,9 @@ export default function ApplicationTracker() {
               onChange={(e) => setForm({ ...form, status: e.target.value })}
               className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white text-sm outline-none focus:border-blue-500"
             >
-              {STATUSES.map((s) => <option key={s}>{s}</option>)}
+              {STATUSES.map((s) => (
+                <option key={s}>{s}</option>
+              ))}
             </select>
           </div>
           <textarea
@@ -176,22 +193,36 @@ export default function ApplicationTracker() {
       {applications.length === 0 ? (
         <div className="text-center py-8">
           <p className="text-slate-600 text-sm">No applications tracked yet</p>
-          <p className="text-slate-700 text-xs mt-1">Click "Add Application" to start tracking</p>
+          <p className="text-slate-700 text-xs mt-1">
+            Click "Add Application" to start tracking
+          </p>
         </div>
       ) : (
         <div className="flex flex-col gap-2">
           {applications.slice(0, 5).map((app) => (
-            <div key={app._id} className="flex items-center justify-between gap-3 py-2.5 border-b border-slate-800 last:border-0">
+            <div
+              key={app._id}
+              className="flex items-center justify-between gap-3 py-2.5 border-b border-slate-800 last:border-0"
+            >
               <div className="flex flex-col gap-0.5 flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <p className="text-white text-sm font-medium truncate">{app.companyName}</p>
+                  <p className="text-white text-sm font-medium truncate">
+                    {app.companyName}
+                  </p>
                   {app.jobUrl && (
-                    <a href={app.jobUrl} target="_blank" rel="noreferrer" className="text-slate-600 hover:text-blue-400 transition-colors shrink-0">
+                    <a
+                      href={app.jobUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-slate-600 hover:text-blue-400 transition-colors shrink-0"
+                    >
                       <ExternalLink size={12} />
                     </a>
                   )}
                 </div>
-                <p className="text-slate-500 text-xs truncate">{app.jobTitle}</p>
+                <p className="text-slate-500 text-xs truncate">
+                  {app.jobTitle}
+                </p>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <select
@@ -199,7 +230,11 @@ export default function ApplicationTracker() {
                   onChange={(e) => handleStatusChange(app._id, e.target.value)}
                   className={`text-xs border px-2 py-1 rounded-lg outline-none cursor-pointer ${STATUS_COLORS[app.status]} bg-transparent`}
                 >
-                  {STATUSES.map((s) => <option key={s} className="bg-slate-900 text-white">{s}</option>)}
+                  {STATUSES.map((s) => (
+                    <option key={s} className="bg-slate-900 text-white">
+                      {s}
+                    </option>
+                  ))}
                 </select>
                 <button
                   onClick={() => handleDelete(app._id)}
@@ -213,7 +248,9 @@ export default function ApplicationTracker() {
           {applications.length > 5 && (
             <p className="text-slate-600 text-xs text-center pt-1">
               +{applications.length - 5} more — view all in{" "}
-              <a href="/applications" className="text-blue-400 hover:underline">Applications</a>
+              <a href="/applications" className="text-blue-400 hover:underline">
+                Applications
+              </a>
             </p>
           )}
         </div>

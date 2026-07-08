@@ -11,6 +11,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import toast from "react-hot-toast";
+import { apiFetch } from "../utils/api.js";
 
 export default function Analyze() {
   const [jobDescription, setJobDescription] = useState("");
@@ -98,7 +99,7 @@ export default function Analyze() {
     setJobDescription("");
 
     try {
-      const res = await fetch("/api/scrape", {
+      const res = await apiFetch("/api/scrape", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -176,7 +177,7 @@ export default function Analyze() {
       formData.append("resume", file);
       formData.append("jobDescription", jobDescription);
 
-      const res = await fetch("/api/analyze/upload", {
+      const res = await apiFetch("/api/analyze/upload", {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,

@@ -1,23 +1,45 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import {
-  Shield, CheckCircle, XCircle, AlertTriangle,
-  Sparkles, ChevronDown, ChevronUp
+  Shield,
+  CheckCircle,
+  XCircle,
+  AlertTriangle,
+  Sparkles,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import toast from "react-hot-toast";
+import { apiFetch } from "../utils/api.js";
 
 function AtsScoreGauge({ score }) {
   const color = score >= 75 ? "#4ade80" : score >= 50 ? "#facc15" : "#f87171";
-  const label = score >= 75 ? "ATS Friendly" : score >= 50 ? "Needs Work" : "Poor Compatibility";
+  const label =
+    score >= 75
+      ? "ATS Friendly"
+      : score >= 50
+        ? "Needs Work"
+        : "Poor Compatibility";
 
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col items-center gap-3">
       <div className="relative">
         <svg width="140" height="140" viewBox="0 0 140 140">
-          <circle cx="70" cy="70" r="56" fill="none" stroke="#1e293b" strokeWidth="10" />
           <circle
-            cx="70" cy="70" r="56" fill="none"
-            stroke={color} strokeWidth="10"
+            cx="70"
+            cy="70"
+            r="56"
+            fill="none"
+            stroke="#1e293b"
+            strokeWidth="10"
+          />
+          <circle
+            cx="70"
+            cy="70"
+            r="56"
+            fill="none"
+            stroke={color}
+            strokeWidth="10"
             strokeDasharray={`${(score / 100) * 351} 351`}
             strokeLinecap="round"
             transform="rotate(-90 70 70)"
@@ -59,7 +81,10 @@ function SectionChecker({ sections }) {
       </p>
       <div className="grid grid-cols-1 gap-2">
         {Object.entries(sections).map(([key, found]) => (
-          <div key={key} className="flex items-center justify-between py-1.5 border-b border-slate-800 last:border-0">
+          <div
+            key={key}
+            className="flex items-center justify-between py-1.5 border-b border-slate-800 last:border-0"
+          >
             <span className="text-slate-300 text-sm">{sectionLabels[key]}</span>
             {found ? (
               <div className="flex items-center gap-1.5 text-green-400 text-xs font-medium">
@@ -89,7 +114,9 @@ function KeywordDensity({ keywordsFound, keywordsMissing, density }) {
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-white font-semibold mb-0.5">Keyword Density</h3>
-          <p className="text-slate-500 text-xs">JD keywords found in your resume</p>
+          <p className="text-slate-500 text-xs">
+            JD keywords found in your resume
+          </p>
         </div>
         <div className="text-right">
           <p className="text-2xl font-bold text-blue-400">{density}%</p>
@@ -113,7 +140,10 @@ function KeywordDensity({ keywordsFound, keywordsMissing, density }) {
           </p>
           <div className="flex flex-wrap gap-1.5">
             {keywordsFound.map((kw) => (
-              <span key={kw} className="bg-green-900/20 border border-green-800 text-green-400 text-xs px-2.5 py-0.5 rounded-full">
+              <span
+                key={kw}
+                className="bg-green-900/20 border border-green-800 text-green-400 text-xs px-2.5 py-0.5 rounded-full"
+              >
                 {kw}
               </span>
             ))}
@@ -128,18 +158,31 @@ function KeywordDensity({ keywordsFound, keywordsMissing, density }) {
             <XCircle size={12} /> Missing from Resume ({keywordsMissing.length})
           </p>
           <div className="flex flex-wrap gap-1.5">
-            {(showAll ? keywordsMissing : keywordsMissing.slice(0, 6)).map((kw) => (
-              <span key={kw} className="bg-red-900/20 border border-red-800 text-red-400 text-xs px-2.5 py-0.5 rounded-full">
-                {kw}
-              </span>
-            ))}
+            {(showAll ? keywordsMissing : keywordsMissing.slice(0, 6)).map(
+              (kw) => (
+                <span
+                  key={kw}
+                  className="bg-red-900/20 border border-red-800 text-red-400 text-xs px-2.5 py-0.5 rounded-full"
+                >
+                  {kw}
+                </span>
+              ),
+            )}
           </div>
           {keywordsMissing.length > 6 && (
             <button
               onClick={() => setShowAll(!showAll)}
               className="mt-2 text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors"
             >
-              {showAll ? <><ChevronUp size={12} /> Show less</> : <><ChevronDown size={12} /> +{keywordsMissing.length - 6} more</>}
+              {showAll ? (
+                <>
+                  <ChevronUp size={12} /> Show less
+                </>
+              ) : (
+                <>
+                  <ChevronDown size={12} /> +{keywordsMissing.length - 6} more
+                </>
+              )}
             </button>
           )}
         </div>
@@ -149,15 +192,18 @@ function KeywordDensity({ keywordsFound, keywordsMissing, density }) {
 }
 
 function FormatIssues({ issues }) {
-  if (!issues?.length) return (
-    <div className="bg-slate-900 border border-green-800 rounded-2xl p-6">
-      <div className="flex items-center gap-2 mb-1">
-        <CheckCircle size={16} className="text-green-400" />
-        <h3 className="text-white font-semibold">No Format Issues Found</h3>
+  if (!issues?.length)
+    return (
+      <div className="bg-slate-900 border border-green-800 rounded-2xl p-6">
+        <div className="flex items-center gap-2 mb-1">
+          <CheckCircle size={16} className="text-green-400" />
+          <h3 className="text-white font-semibold">No Format Issues Found</h3>
+        </div>
+        <p className="text-slate-500 text-sm">
+          Your resume format looks ATS-friendly!
+        </p>
       </div>
-      <p className="text-slate-500 text-sm">Your resume format looks ATS-friendly!</p>
-    </div>
-  );
+    );
 
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6">
@@ -171,7 +217,10 @@ function FormatIssues({ issues }) {
       <ul className="flex flex-col gap-2.5">
         {issues.map((issue, i) => (
           <li key={i} className="flex items-start gap-2.5 text-sm">
-            <AlertTriangle size={13} className="text-yellow-400 mt-0.5 shrink-0" />
+            <AlertTriangle
+              size={13}
+              className="text-yellow-400 mt-0.5 shrink-0"
+            />
             <span className="text-slate-300">{issue}</span>
           </li>
         ))}
@@ -185,7 +234,9 @@ function AtsTips({ tips }) {
     <div className="bg-blue-900/10 border border-blue-800 rounded-2xl p-6">
       <div className="flex items-center gap-2 mb-4">
         <Sparkles size={16} className="text-blue-400" />
-        <h3 className="text-white font-semibold">How to Improve ATS Compatibility</h3>
+        <h3 className="text-white font-semibold">
+          How to Improve ATS Compatibility
+        </h3>
       </div>
       <ul className="flex flex-col gap-3">
         {tips.map((tip, i) => (
@@ -193,7 +244,9 @@ function AtsTips({ tips }) {
             <span className="bg-blue-900/40 text-blue-400 text-xs font-bold px-2 py-0.5 rounded-lg shrink-0 mt-0.5">
               {String(i + 1).padStart(2, "0")}
             </span>
-            <span className="text-slate-300 text-sm leading-relaxed">{tip}</span>
+            <span className="text-slate-300 text-sm leading-relaxed">
+              {tip}
+            </span>
           </li>
         ))}
       </ul>
@@ -211,7 +264,7 @@ export default function AtsSimulator() {
   useEffect(() => {
     async function fetchAnalyses() {
       try {
-        const res = await fetch("/api/analyze/history", {
+        const res = await apiFetch("/api/analyze/history", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -233,7 +286,7 @@ export default function AtsSimulator() {
     setSimulation(null);
 
     try {
-      const res = await fetch("/api/ats/simulate", {
+      const res = await apiFetch("/api/ats/simulate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -282,7 +335,8 @@ export default function AtsSimulator() {
             >
               {analyses.map((a) => (
                 <option key={a._id} value={a._id}>
-                  {a.jobDescription.slice(0, 80)}... — {a.result?.matchScore}% match
+                  {a.jobDescription.slice(0, 80)}... — {a.result?.matchScore}%
+                  match
                 </option>
               ))}
             </select>
