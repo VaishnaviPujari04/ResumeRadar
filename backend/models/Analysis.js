@@ -15,12 +15,17 @@ const analysisSchema = new mongoose.Schema(
       strengths: [String],
       suggestions: [String],
     },
-    // Share fields
     isShared: { type: Boolean, default: false },
-    shareId: { type: String, default: null, unique: true, sparse: true },
+    shareId: { type: String, default: null }, // NO unique, NO sparse
     sharedAt: { type: Date, default: null },
   },
   { timestamps: true }
+);
+
+// Only add index if shareId is not null
+analysisSchema.index(
+  { shareId: 1 },
+  { unique: true, sparse: true, partialFilterExpression: { shareId: { $type: "string" } } }
 );
 
 export default mongoose.model("Analysis", analysisSchema);
