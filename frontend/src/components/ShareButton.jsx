@@ -3,7 +3,6 @@ import { Share2, Copy, Check, X, Link2 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
 import { apiFetch } from "../utils/api.js";
-import { apiFetch } from "../utils/api.js";
 
 export default function ShareButton({ analysisId }) {
   const [shareUrl, setShareUrl] = useState(null);
