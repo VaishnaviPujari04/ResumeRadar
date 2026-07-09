@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 import {
-  Zap, Shield, FileText, Wand2, MessageCircle,
-  Trophy, TrendingUp, CheckCircle, ArrowRight, Star
+  Zap,
+  Shield,
+  FileText,
+  Wand2,
+  MessageCircle,
+  Trophy,
+  TrendingUp,
+  CheckCircle,
+  ArrowRight,
+  Star,
 } from "lucide-react";
 
 function Navbar() {
@@ -14,12 +22,30 @@ function Navbar() {
         </span>
       </div>
       <div className="hidden sm:flex items-center gap-6">
-        <a href="#features" className="text-slate-400 hover:text-white text-sm transition-colors">Features</a>
-        <a href="#how-it-works" className="text-slate-400 hover:text-white text-sm transition-colors">How it works</a>
-        <a href="#pricing" className="text-slate-400 hover:text-white text-sm transition-colors">Pricing</a>
+        <a
+          href="#features"
+          className="text-slate-400 hover:text-white text-sm transition-colors"
+        >
+          Features
+        </a>
+        <a
+          href="#how-it-works"
+          className="text-slate-400 hover:text-white text-sm transition-colors"
+        >
+          How it works
+        </a>
+        <a
+          href="#pricing"
+          className="text-slate-400 hover:text-white text-sm transition-colors"
+        >
+          Pricing
+        </a>
       </div>
       <div className="flex items-center gap-3">
-        <Link to="/login" className="text-slate-400 hover:text-white text-sm transition-colors">
+        <Link
+          to="/login"
+          className="text-slate-400 hover:text-white text-sm transition-colors"
+        >
           Log In
         </Link>
         <Link
@@ -46,15 +72,23 @@ function HeroSection() {
           <span className="text-blue-400">Land More Interviews.</span>
         </h1>
         <p className="text-slate-400 text-lg leading-relaxed max-w-lg">
-          ResumeRadar analyzes your resume against any job description, gives you an ATS match score, highlights skill gaps, and rewrites your resume with AI — in seconds.
+          ResumeRadar analyzes your resume against any job description, gives
+          you an ATS match score, highlights skill gaps, and rewrites your
+          resume with AI — in seconds.
         </p>
 
         {/* Trust badges */}
         <div className="flex items-center gap-2">
           {[...Array(5)].map((_, i) => (
-            <Star key={i} size={16} className="text-yellow-400 fill-yellow-400" />
+            <Star
+              key={i}
+              size={16}
+              className="text-yellow-400 fill-yellow-400"
+            />
           ))}
-          <span className="text-slate-400 text-sm ml-1">Loved by 500+ job seekers</span>
+          <span className="text-slate-400 text-sm ml-1">
+            Loved by 500+ job seekers
+          </span>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3">
@@ -84,7 +118,9 @@ function HeroSection() {
           <div className="flex items-center justify-between mb-5">
             <div className="flex items-center gap-2">
               <Zap size={16} className="text-blue-400" />
-              <span className="text-white text-sm font-semibold">ResumeRadar</span>
+              <span className="text-white text-sm font-semibold">
+                ResumeRadar
+              </span>
             </div>
             <span className="text-xs text-slate-500">Analysis Report</span>
           </div>
@@ -93,9 +129,25 @@ function HeroSection() {
           <div className="flex items-center gap-4 mb-5 bg-slate-800 rounded-xl p-4">
             <div className="relative shrink-0">
               <svg width="70" height="70" viewBox="0 0 70 70">
-                <circle cx="35" cy="35" r="28" fill="none" stroke="#1e293b" strokeWidth="6" />
-                <circle cx="35" cy="35" r="28" fill="none" stroke="#4ade80" strokeWidth="6"
-                  strokeDasharray="158 176" strokeLinecap="round" transform="rotate(-90 35 35)" />
+                <circle
+                  cx="35"
+                  cy="35"
+                  r="28"
+                  fill="none"
+                  stroke="#1e293b"
+                  strokeWidth="6"
+                />
+                <circle
+                  cx="35"
+                  cy="35"
+                  r="28"
+                  fill="none"
+                  stroke="#4ade80"
+                  strokeWidth="6"
+                  strokeDasharray="158 176"
+                  strokeLinecap="round"
+                  transform="rotate(-90 35 35)"
+                />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">87%</span>
@@ -103,14 +155,22 @@ function HeroSection() {
             </div>
             <div>
               <p className="text-white font-semibold">Strong Match!</p>
-              <p className="text-slate-500 text-xs mt-0.5">Your resume scores 87% for this role</p>
+              <p className="text-slate-500 text-xs mt-0.5">
+                Your resume scores 87% for this role
+              </p>
             </div>
           </div>
 
           {/* Mock strengths */}
           <div className="mb-4">
-            <p className="text-green-400 text-xs font-medium mb-2">✓ Strengths Found</p>
-            {["MERN stack experience matches JD", "JWT auth skills directly aligned", "Deployed projects on Vercel"].map((s) => (
+            <p className="text-green-400 text-xs font-medium mb-2">
+              ✓ Strengths Found
+            </p>
+            {[
+              "MERN stack experience matches JD",
+              "JWT auth skills directly aligned",
+              "Deployed projects on Vercel",
+            ].map((s) => (
               <div key={s} className="flex items-center gap-2 py-1">
                 <CheckCircle size={12} className="text-green-400 shrink-0" />
                 <p className="text-slate-300 text-xs">{s}</p>
@@ -120,10 +180,15 @@ function HeroSection() {
 
           {/* Mock missing keywords */}
           <div>
-            <p className="text-red-400 text-xs font-medium mb-2">Missing Keywords</p>
+            <p className="text-red-400 text-xs font-medium mb-2">
+              Missing Keywords
+            </p>
             <div className="flex flex-wrap gap-1.5">
               {["TypeScript", "Docker", "CI/CD", "AWS"].map((kw) => (
-                <span key={kw} className="bg-red-900/20 border border-red-800 text-red-400 text-xs px-2 py-0.5 rounded-full">
+                <span
+                  key={kw}
+                  className="bg-red-900/20 border border-red-800 text-red-400 text-xs px-2 py-0.5 rounded-full"
+                >
                   {kw}
                 </span>
               ))}
@@ -176,13 +241,17 @@ function FeaturesSection() {
           Everything You Need to Land the Job
         </h2>
         <p className="text-slate-400 max-w-xl mx-auto">
-          Six AI-powered tools working together to get your resume past ATS filters and in front of hiring managers.
+          Six AI-powered tools working together to get your resume past ATS
+          filters and in front of hiring managers.
         </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {features.map((f) => (
-          <div key={f.title} className="bg-slate-900 border border-slate-800 hover:border-blue-800 rounded-2xl p-6 flex flex-col gap-3 transition-colors">
+          <div
+            key={f.title}
+            className="bg-slate-900 border border-slate-800 hover:border-blue-800 rounded-2xl p-6 flex flex-col gap-3 transition-colors"
+          >
             <div className="bg-slate-800 w-10 h-10 rounded-xl flex items-center justify-center">
               {f.icon}
             </div>
@@ -220,11 +289,16 @@ function HowItWorksSection() {
   ];
 
   return (
-    <section id="how-it-works" className="bg-slate-900 border-y border-slate-800 py-20">
+    <section
+      id="how-it-works"
+      className="bg-slate-900 border-y border-slate-800 py-20"
+    >
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-white mb-3">How It Works</h2>
-          <p className="text-slate-400">From resume to ready-to-apply in 4 simple steps</p>
+          <p className="text-slate-400">
+            From resume to ready-to-apply in 4 simple steps
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -271,7 +345,10 @@ function PricingSection() {
             "Resume comparison",
             "Application tracker",
           ].map((item) => (
-            <li key={item} className="flex items-center gap-2.5 text-sm text-slate-300">
+            <li
+              key={item}
+              className="flex items-center gap-2.5 text-sm text-slate-300"
+            >
               <CheckCircle size={15} className="text-green-400 shrink-0" />
               {item}
             </li>
@@ -296,7 +373,8 @@ function CTASection() {
           Ready to Land Your Dream Job?
         </h2>
         <p className="text-blue-100 text-lg">
-          Join thousands of job seekers using ResumeRadar to optimize their resumes and get more interviews.
+          Join thousands of job seekers using ResumeRadar to optimize their
+          resumes and get more interviews.
         </p>
         <Link
           to="/signup"
@@ -304,7 +382,9 @@ function CTASection() {
         >
           <Zap size={18} /> Start Analyzing Free
         </Link>
-        <p className="text-blue-200 text-sm">No credit card · Results in 30 seconds</p>
+        <p className="text-blue-200 text-sm">
+          No credit card · Results in 30 seconds
+        </p>
       </div>
     </section>
   );
@@ -321,11 +401,15 @@ function Footer() {
           </span>
         </div>
         <p className="text-slate-600 text-sm">
-          Built with React · Node.js · MongoDB · Groq AI
+          Designed & Developed by Vaishnavi Pujari
         </p>
         <div className="flex items-center gap-4 text-sm text-slate-500">
-          <Link to="/login" className="hover:text-white transition-colors">Login</Link>
-          <Link to="/signup" className="hover:text-white transition-colors">Sign Up</Link>
+          <Link to="/login" className="hover:text-white transition-colors">
+            Login
+          </Link>
+          <Link to="/signup" className="hover:text-white transition-colors">
+            Sign Up
+          </Link>
         </div>
       </div>
     </footer>
