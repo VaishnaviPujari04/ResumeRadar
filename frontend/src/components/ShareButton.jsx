@@ -14,7 +14,7 @@ export default function ShareButton({ analysisId }) {
   async function handleShare() {
     setLoading(true);
     try {
-      const res = await fetch(`/api/share/${analysisId}`, {
+      const res = await apiFetch(`/api/share/${analysisId}`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -41,7 +41,7 @@ export default function ShareButton({ analysisId }) {
 
   async function handleRevoke() {
     try {
-      await fetch(`/api/share/${analysisId}`, {
+      await apiFetch(`/api/share/${analysisId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -79,7 +79,6 @@ export default function ShareButton({ analysisId }) {
             </button>
           </div>
 
-          {/* URL box */}
           <div className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 flex items-center justify-between gap-2">
             <p className="text-slate-400 text-xs truncate">{shareUrl}</p>
             <button
